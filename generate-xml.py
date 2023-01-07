@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import requests
 import json
 import os
@@ -47,7 +49,7 @@ packet_tpl ="""		<Zasielka>
 			<Adresat>
 				<Meno>{first_name} {last_name}</Meno>
 				<Organizacia>{organization}</Organizacia>
-				<Ulica>{street}</Ulica>
+				<Ulica>{street}, {street_extension}</Ulica>
 				<Mesto>{city}</Mesto>
 				<PSC>{postal_code}</PSC>
 				<Krajina>{country_code}</Krajina>
@@ -110,4 +112,5 @@ for e in r.json()["orders"]:
 xml.write(xml_foot)
 
 print(xml)
+
 
