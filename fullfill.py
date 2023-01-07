@@ -1,4 +1,5 @@
-#importing xmltodict module
+#!/usr/bin/python3
+
 import xmltodict
 import sys
 import json
@@ -15,11 +16,18 @@ headers = {
         "Authorization": "Bearer "+os.environ.get("LECTRONZ_TOKEN")
         }
 
-for e in data["EPH"]["Zasielky"]["Zasielka"]:
+zasielky = data["EPH"]["Zasielky"]["Zasielka"]
+
+if not isinstance(zasielky, (list)):
+    zasielky = [ zasielky ]
+
+for e in zasielky:
     id = e["Info"]["Poznamka"]
-    code = e["Info"]["CiarovyKod"]
+    code = e["Info"].get("CiarovyKod")
+    if not code:
+        code = ""
     url = "https://tandt.posta.sk/en/items/"+code
-    if not code.startswith("RE"):
+    if not code.startswith("RF"):
         code = ""
         url = ""
     print(id, code)
