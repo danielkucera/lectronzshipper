@@ -3,6 +3,7 @@
 import requests
 import json
 import os
+import sys
 
 url = "https://lectronz.com/api/v1"
 
@@ -80,10 +81,16 @@ xml_foot = """	</Zasielky>
 </EPH>
 """
 
-xml = open("export.xml", "w")
+argt = sys.argv[1]
 
-ptype=REGISTERED_LETTER
-ptype=LETTER
+xml = open("export-"+argt+".xml", "w")
+
+if argt == "1":
+    ptype=REGISTERED_LETTER
+elif argt == "2":
+    ptype=LETTER
+else:
+    raise Exception("not specified")
 
 if ptype == REGISTERED_LETTER:
     shipping = "Registered"
